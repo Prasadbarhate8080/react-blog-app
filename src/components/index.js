@@ -5,7 +5,7 @@ import Container from "./Container/Container.jsx"
 import Logo from "./Logo";
 import LogoutBtn from "./Header/LogoutBtn";
 import RTE from "./RTE";
-import Signup from "./Signup";
+import SignUp from "./Signup.jsx";
 import Login from "./Login.jsx";
 import Button from "./Button";
 import PostForm from "./post-form/PostForm";
@@ -19,7 +19,7 @@ export {
     Logo,
     LogoutBtn,
     RTE,
-    Signup,
+    SignUp,
     Login,
     Button,
     PostForm,
