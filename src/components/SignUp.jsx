@@ -74,7 +74,7 @@ const create = async(data) => {
                 {...register("password", {
                     required: true,})}
                 />
-                <Button chiidren={"Create Account"} type="submit" className="w-full">
+                <Button value={"Create Account"} type="submit" className="w-full">
                 </Button>
             </div>
         </form>

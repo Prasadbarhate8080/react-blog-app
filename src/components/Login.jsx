@@ -73,7 +73,7 @@ function Login() {
                     required: true,
                 })}
                 />
-                <Button chiidren={"Sign in"}
+                <Button value={"Sign in"}
                 type="submit"
                 className="w-full"
                 ></Button>
