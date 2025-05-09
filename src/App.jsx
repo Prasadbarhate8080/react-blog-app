@@ -25,15 +25,15 @@ function App() {
   }, [])  
   
   return !loading ? (
-    <div >
-      <div>
+    <div className='bg-[#f7f7f7]'>
+      <div className='container'>
         <Header />
         <main>
         <Outlet />
         </main>
         <Footer />
       </div>
-    </div>
+      </div>
   ) : null
 }
 

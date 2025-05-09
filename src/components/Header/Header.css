@@ -1,0 +1,83 @@
+.nav {
+    height: 80px;
+    width: 100%;
+  }
+  .nav-container {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    font-family: inter, Helvetica, sans-serif;
+  }
+  .tech-wave-logo {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  .nav-items {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+  .search-bar{
+    display: flex;
+    align-items: center;
+  }
+  .search input {
+    height: 30px;
+    width: 200px;
+    outline: none;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border: 1px solid gray;
+    border-right-width: 0px;
+    text-indent: 10px;
+  }
+  
+  .search input:focus {
+    border: 1px solid black;
+    border-right-width: 0px;
+  }
+  .nav-items ul {
+    display: flex;
+    color: #222222;
+    list-style: none;
+    gap: 40px;
+    font-size: 1rem;
+    font-weight: lighter;
+  }
+  .nav-items ul li a{
+    text-decoration: none;
+    color: #222222;
+  }
+  .nav-items ul li a:hover {
+    cursor: pointer;
+    color: #1e73be;
+  }
+  .search-bar:focus-within .search-icon {
+    border: 1px solid black;
+    border-left: 0;
+  }
+  .search-icon {
+    width: 35px;
+    height: 30px;
+    background-color: #E3E6E6;
+    cursor: pointer;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border: 1px solid gray;
+    border-left-width: 0px;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .sign-up {
+    cursor: pointer;
+    font-weight: bolder;
+    font-size: larger;
+    border: 2px solid black;
+    border-radius: 8px;
+    padding: 3px;
+  
+  }

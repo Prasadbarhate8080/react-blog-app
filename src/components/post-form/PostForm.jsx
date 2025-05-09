@@ -36,10 +36,9 @@ export default function PostForm({ post }) {
             }
         } else {
             const file = await appwriteService.uploadFile(data.image[0]);
-            console.log("uploaded file",file)
             if (file) {
                 const fileId = file.$id;
-                data.featuredimage = fileId || "";
+                data.featuredimage = fileId || "";  
                 const dbPost = await appwriteService.createPost({ ...data, userid: userData.$id });
                 
                 if (dbPost) {
@@ -78,6 +77,12 @@ export default function PostForm({ post }) {
                     placeholder="Title"
                     className="mb-4"
                     {...register("title", { required: true })}
+                />
+                 <Input
+                    label="Desciption :"
+                    placeholder="Description"
+                    className="mb-4"
+                    {...register("description", { required: true })}
                 />
                 <Input
                     label="Slug :"
