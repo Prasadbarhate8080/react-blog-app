@@ -4,12 +4,11 @@ footer{
     max-width: 100%;
   }
   .footer-one{
-    height: 250px;
+    min-height: 250px;
     max-width: 100%;
     background-color: #212529;
     display: flex;
     justify-content: center;
-    position: relative;
   }
   .footer-one ul{
     list-style: none;
@@ -18,8 +17,9 @@ footer{
     gap: 100px;
     color: #1e73be;
     cursor: pointer;
-    position: absolute;
-    bottom: 50px;
+    flex-wrap: wrap;
+    margin: 50px 0;
+    max-width: 80%;
   }
   .footer-two{
     height: 70px;

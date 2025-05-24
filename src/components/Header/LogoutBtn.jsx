@@ -12,7 +12,7 @@ function LogoutBtn() {
     }
   return (
     <button
-    className='inline-bock  cursor-pointer '
+    className='inline-bock  cursor-pointer font-bold border-2 rounded-md px-0.5'
     onClick={logoutHandler}
     >Logout</button>
   )

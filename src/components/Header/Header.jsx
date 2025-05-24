@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import {Container, Logo, LogoutBtn} from '../index'
 import { Link } from 'react-router-dom'
 import {useSelector} from 'react-redux'
@@ -8,6 +8,16 @@ import "./Header.css"
 function Header() {
   const authStatus = useSelector((state) => state.auth.status)
   const navigate = useNavigate()
+  const  [sidebarActive, setSidebarActive] = useState(false)
+
+  useEffect(() => {
+   console.log(sidebarActive)
+  }, [sidebarActive])
+
+  useEffect(() => {
+    console.log("run on every render")
+  })
+  
 
   const navItems = [
     {
@@ -52,8 +62,26 @@ function Header() {
                             {authStatus && <li><a href="/add-post">Add Post</a></li>}
                             {authStatus && <li><a><LogoutBtn /></a></li>}
                         </ul>
-                        {!authStatus &&<div className="signup"><a href="/signup">Signup</a></div>}
-                        {!authStatus &&<div className="signup"><a href="/login">Login</a></div>}
+                        <div
+                        onClick={() => {setSidebarActive(prev => !prev)}}
+                        className='hamburger-div'>
+                          <img width={20} height={20} src={sidebarActive ? "" : "/hamburger.png"} alt="" />
+                          </div>
+                        <div 
+                         className={`${sidebarActive ? "translate-x-0" : "translate-x-full"} 
+                         transition-transform duration-300 ease-in-out
+                          h-80 w-[226px] p-2  bg-white top-8 absolute left-[40%] z-10`}
+                         >
+                          <div 
+                          onClick={() => {setSidebarActive(prev => !prev)}}
+                          >
+                            <img width={20} height={20} src={"/close.png" } alt="" />
+                          </div>
+                          this is the sidebar
+                        </div> 
+                        {!authStatus &&
+                        <div className="signup font-bold border-2 rounded-md px-0.5"><a href="/login">Log in</a></div>
+                        }
                     </div>
                 </div>
             </nav>

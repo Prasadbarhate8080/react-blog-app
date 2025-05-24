@@ -81,8 +81,14 @@
     padding: 3px;
   
   }
+  .hamburger-div{
+    display: none;
+  }
   @media screen and (max-width: 750px) {
     .nav-ul{
        display: none !important;
+    }
+    .hamburger-div{
+      display: block;
     }
   }

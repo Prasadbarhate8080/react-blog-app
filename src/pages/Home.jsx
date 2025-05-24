@@ -6,7 +6,6 @@ import "./Home.css";
 
 function Home() {
   const [skip, setSkip] = useState(0)
-  console.log(skip)
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     appwriteService.getPosts(
@@ -41,7 +40,7 @@ function Home() {
             {/* Background Illustration for better UI */}
             <div className="hidden md:block absolute inset-0 opacity-10 pointer-events-none">
               <svg xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-                <circle cx="50%" cy="50%" r="40%" fill="#ffffff" />
+                <circle cx="50%" cy="20%" r="40%" fill="#ffffff" />
               </svg>
             </div>
           </section>
@@ -51,9 +50,31 @@ function Home() {
           </h1>
           <div className="flex flex-wrap">
             <div className="p-2 w-full mt-2 min-h-40 flex bg-[#f7f7f7] justify-center items-center">
-              <h1 className="text-2xl font-bold mt-10">No posts found</h1>
+              <h1 className="text-2xl font-bold mt-10">{skip ? "No More posts found" : "No Post Found"}</h1>
             </div>
           </div>
+          {skip > 0 && <div className="flex justify-center gap-5 mt-2">
+            <button
+              onClick={() => {if(skip >= 6) setSkip(prev => prev - 6)}}
+              type="button" class="bg-gray-800 text-white rounded-l-md border-r border-gray-100 py-2 hover:bg-red-700 hover:text-white px-3">
+              <div class="flex flex-row align-middle">
+                <svg class="w-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"></path>
+                </svg>
+                <p class="ml-2">Prev</p>
+              </div>
+            </button>
+            <button
+              onClick={() => {setSkip(prev => prev + 6)}}
+              type="button" class="bg-gray-800 text-white rounded-r-md py-2 border-l border-gray-200 hover:bg-red-700 hover:text-white px-3">
+              <div class="flex flex-row align-middle">
+                <span class="mr-2">Next</span>
+                <svg class="w-5 ml-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+              </div>
+            </button>
+          </div>}
         </Container>
       </div>
     );
@@ -74,7 +95,7 @@ function Home() {
             </a>
           </div>
 
-          {/* Background Illustration for better UI */}
+          
           <div className="hidden md:block absolute inset-0 opacity-10 pointer-events-none">
             <svg xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
               <circle cx="50%" cy="50%" r="40%" fill="#ffffff" />
@@ -93,8 +114,26 @@ function Home() {
           ))}
         </div>
           <div className="flex justify-center gap-5 mt-2">
-            <button onClick={() => {setSkip(prev => prev - 6)}} className="px-3 py-1 rounded-md active:bg-gray-200 border-2  text-md">Prev</button>
-            <button onClick={() => {setSkip(prev => prev + 6)}} className="px-3 py-1 rounded-md active:bg-gray-200 border-2  text-md">Next</button>
+            <button
+              onClick={() => {if(skip >= 6) setSkip(prev => prev - 6)}}
+              type="button" class="bg-gray-800 text-white rounded-l-md border-r border-gray-100 py-2 hover:bg-red-700 hover:text-white px-3">
+              <div class="flex flex-row align-middle">
+                <svg class="w-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"></path>
+                </svg>
+                <p class="ml-2">Prev</p>
+              </div>
+            </button>
+            <button
+              onClick={() => {setSkip(prev => prev + 6)}}
+              type="button" class="bg-gray-800 text-white rounded-r-md py-2 border-l border-gray-200 hover:bg-red-700 hover:text-white px-3">
+              <div class="flex flex-row align-middle">
+                <span class="mr-2">Next</span>
+                <svg class="w-5 ml-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+              </div>
+            </button>
           </div>
       </Container>
     </div>

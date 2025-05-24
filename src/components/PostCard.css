@@ -1,11 +1,12 @@
 .post-card{
     background-color:  #ffffff;
     width: 294px;
-    height: 448px;
+    max-height: 448px
     /* border: 2px solid gray; */
   }
   .post-card .image-div{
-    /* border-bottom: 2px solid gray; */
+    /* border-top: 1px solid black;
+    border-bottom: 1px solid black; */
   }
   .post-card .date-div{
     margin-top: 4px;
