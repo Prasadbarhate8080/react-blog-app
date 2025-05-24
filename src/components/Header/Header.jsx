@@ -41,20 +41,19 @@ function Header() {
   return (
     <header className=''> 
       <Container>
-      <nav class="nav">
-                <div class="nav-container">
-                    <div class="tech-wave-logo"><span class="text-gray">Tech</span><span>Wave</span>
+      <nav className="nav mt-2">
+                <div className="nav-container">
+                    <div className="tech-wave-logo"><span className="text-gray">Tech</span><span>Wave</span>
                     </div>
-                    <div class="nav-items">
-                        <ul>
+                    <div className ="nav-items">
+                        <ul className='nav-ul'>
                             <li><a href="/">Home</a></li>
-                            
                             {authStatus && <li><a href="/all-posts">Your Post</a></li>}
                             {authStatus && <li><a href="/add-post">Add Post</a></li>}
                             {authStatus && <li><a><LogoutBtn /></a></li>}
                         </ul>
-                        {!authStatus &&<div class="signup"><a href="/signup">Signup</a></div>}
-                        {!authStatus &&<div class="signup"><a href="/login">Login</a></div>}
+                        {!authStatus &&<div className="signup"><a href="/signup">Signup</a></div>}
+                        {!authStatus &&<div className="signup"><a href="/login">Login</a></div>}
                     </div>
                 </div>
             </nav>

@@ -1,8 +1,8 @@
 import React,{useState} from 'react'
 import authService from '../appWrite/auth'
 import {Link,useNavigate} from "react-router-dom"
-import { login } from '../store/authSlice'
-import {Button,Input,Logo} from "./index"
+import { login } from '../store/authSlice.js'
+import {Button,Input,Logo} from "./index.js"
 import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
 
@@ -11,14 +11,16 @@ const navigate = useNavigate();
 const [error,setError] = useState("");
 const dispatch = useDispatch();
 const {register,handleSubmit} = useForm();
+console.log("in  signup")
 const create = async(data) => {
     setError("");
    try {
-     const userData = await authService.createAccount(data)
-     if(userData)
+     const session = await authService.createAccount(data)
+     if(session)
      {
         const userData = await authService.getCurrentUser();
-        if(userData) dispatch(login(userData));
+        if(userData)
+            dispatch(login(userData));
         navigate("/");
      }
    } catch (error) {
@@ -51,6 +53,7 @@ const create = async(data) => {
                 <Input
                 label="Full Name: "
                 placeholder="Enter your full name"
+                className={"focus:ring focus:ring-blue-700 focus:ring-offset-1"}
                 {...register("name", {
                     required: true,
                 })}
@@ -58,6 +61,7 @@ const create = async(data) => {
                 <Input
                 label="Email: "
                 placeholder="Enter your email"
+                className={"focus:ring focus:ring-blue-700 focus:ring-offset-1"}
                 type="email"
                 {...register("email", {
                     required: true,
@@ -70,6 +74,7 @@ const create = async(data) => {
                 <Input
                 label="Password:"
                 type="password"
+                className={"focus:ring focus:ring-blue-700 focus:ring-offset-1"}
                 placeholder="Enter your password"
                 {...register("password", {
                     required: true,})}

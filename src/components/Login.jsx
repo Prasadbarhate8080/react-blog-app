@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import {Link,useNavigate} from 'react-router-dom'
-import {login as authLogin} from '../store/authSlice'
+import {login as authLogin} from '../store/authSlice.js'
 import {useDispatch} from 'react-redux'
 import {Button,Input,Logo} from './index'
 import authService from '../appWrite/auth'
@@ -18,7 +18,7 @@ function Login() {
             const session=await authService.login(data);
             if(session)
             {
-                const userData=await authService.getCurrentUser();
+                const userData = await authService.getCurrentUser();
                 if(userData)
                 {
                     dispatch(authLogin(userData));
@@ -56,6 +56,7 @@ function Login() {
                 <Input
                 label="Email: "
                 placeholder="Enter your email"
+                className={"focus:ring focus:ring-blue-700 focus:ring-offset-1"}
                 type="email"
                 {...register("email", {
                     required: true,
@@ -69,6 +70,7 @@ function Login() {
                 label="Password: "
                 type="password"
                 placeholder="Enter your password"
+                className={"focus:ring focus:ring-blue-700 focus:ring-offset-1"}
                 {...register("password", {
                     required: true,
                 })}

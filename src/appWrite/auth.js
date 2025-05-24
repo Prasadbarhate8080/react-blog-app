@@ -16,15 +16,13 @@
 
         async  createAccount({email, password, name}) {
             try {
-                console.log("create mai hoon");
                 const userAccount = await this.account.create(ID.unique(), email, password, name);
                 if (userAccount) {
                     // call another method
-                    console.log("Signup successful, now logging in...");
                      await  this.login({ email, password });
-                } else {
-                return  userAccount; 
-                }
+                     return  userAccount; 
+                } 
+                
             } catch (error) {
                 throw error;
             }
@@ -34,7 +32,6 @@
 
         async  login({email, password}) {
             try {
-                console.log("login mai hoon");
                 return await this.account.createEmailPasswordSession(email, password);
             } catch (error) {
                 console.log("Appwrite serive :: login :: error", error);
@@ -44,7 +41,6 @@
 
             async  getCurrentUser() {
                 try {
-                    console.log("current user mai hoon");
                     return await this.account.get();
                 } catch (error) {
                     console.log("Appwrite serive :: getCurrentUser :: error", error);
@@ -56,7 +52,6 @@
             async  logout() {
 
                 try {
-                    console.log("logout mai hoon");
                     await this.account.deleteSessions();
                     return true;
                 } catch (error) {

@@ -81,3 +81,8 @@
     padding: 3px;
   
   }
+  @media screen and (max-width: 750px) {
+    .nav-ul{
+       display: none !important;
+    }
+  }

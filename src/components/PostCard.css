@@ -1,6 +1,7 @@
 .post-card{
     background-color:  #ffffff;
     width: 294px;
+    height: 448px;
     /* border: 2px solid gray; */
   }
   .post-card .image-div{
@@ -16,8 +17,8 @@
   
   }
   .post-card img {
-    height: 97%;
-    width: 97%;
+    height: 100%;
+    width: 100%;
     object-fit: cover;
     object-position: center;
   }
@@ -29,6 +30,8 @@
     width: 253px;
     color: #2c3e50;
     transition: color 0.3s ease, transform 0.3s ease;
+    max-height: 58px;
+    overflow: hidden;
   }
   .post-card .post-heading:hover{
     cursor: pointer;
@@ -46,4 +49,6 @@
     overflow: hidden; 
     display: -webkit-box;
     text-overflow: ellipsis; 
+    max-height: 80px;
+    overflow: hidden;
   }

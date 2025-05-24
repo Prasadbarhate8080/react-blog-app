@@ -12,13 +12,15 @@ export default function PostForm({ post }) {
             slug: post?.$id || "",  
             content: post?.content || "",
             status: post?.status || "active",
+            description: post?.description || ""
         },
     });
 
     const navigate = useNavigate();
     const userData = useSelector((state) => state.auth.userData);
-
+ 
     const submit = async (data) => {
+        console.log("inside  submit")
         if (post) {
             const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null;
            
@@ -75,19 +77,19 @@ export default function PostForm({ post }) {
                 <Input
                     label="Title :"
                     placeholder="Title"
-                    className="mb-4"
+                    className="mb-4 focus:ring focus:ring-blue-700 focus:ring-offset-1"
                     {...register("title", { required: true })}
                 />
                  <Input
                     label="Desciption :"
                     placeholder="Description"
-                    className="mb-4"
+                    className="mb-4 focus:ring focus:ring-blue-700 focus:ring-offset-1"
                     {...register("description", { required: true })}
                 />
                 <Input
                     label="Slug :"
                     placeholder="Slug"
-                    className="mb-4"
+                    className="mb-4 focus:ring focus:ring-blue-700 focus:ring-offset-1"
                     {...register("slug", { required: true })}
                     onInput={(e) => {
                         setValue("slug", slugTransform(e.currentTarget.value), { shouldValidate: true });
@@ -99,7 +101,7 @@ export default function PostForm({ post }) {
                 <Input
                     label="Featured Image :"
                     type="file"
-                    className="mb-4"
+                    className="mb-4 focus:ring focus:ring-blue-700 focus:ring-offset-1"
                     accept="image/png, image/jpg, image/jpeg, image/gif"
                     {...register("image", { required: !post })}
                 />
@@ -115,10 +117,10 @@ export default function PostForm({ post }) {
                 <Select
                     options={["active", "inactive"]}
                     label="Status"
-                    className="mb-4"
+                    className="mb-4 "
                     {...register("status", { required: true })}
                 />
-                <Button chiidren={"Publish"} type="submit" bgColor={post ? "bg-green-500" : undefined} value= {post ? "Update" : "Submit"}  className="w-full"/>
+                <Button  type="submit" bgColor={post ? "bg-green-500" : undefined} value= {post ? "Update" : "Submit"}  className="w-full"/>
                    
                 
             </div>

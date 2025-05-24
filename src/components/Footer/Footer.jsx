@@ -7,7 +7,7 @@ function Footer() {
   return (
     <section >
         <footer>
-            <div class="footer-one">
+            <div className="footer-one">
                 <ul>
                     <li><a href="/frontend/index.html">Home</a></li>
                     <li><a href="/frontend/contact.html">Contact Us</a></li>
@@ -16,7 +16,7 @@ function Footer() {
                     <li><a href="/frontend/terms.html">Terms And Condition</a></li>
                 </ul>
             </div>
-            <div class="footer-two">
+            <div className="footer-two">
                 <span>Copyright © 2025 Techwave</span>
             </div>
         </footer>
