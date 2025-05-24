@@ -16,7 +16,7 @@ export class Service{
 
     async createPost({title, slug, content, featuredimage, status, userid,description}){
         try {
-            console.log("inside create posy");
+            console.log(conf)
             
             return await this.databases.createDocument(
                 conf.appWriteDatabaseId,
