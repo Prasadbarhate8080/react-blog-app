@@ -9,8 +9,8 @@
 
         constructor() {
             this.client
-                .setEndpoint("https://cloud.appwrite.io/v1")
-                .setProject("67b81dba003710becd69");
+                .setEndpoint(conf.appWriteUrl)
+                .setProject(conf.appWriteProjectId);
             this.account = new Account(this.client);
         }
 
