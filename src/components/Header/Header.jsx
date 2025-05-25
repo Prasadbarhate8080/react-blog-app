@@ -64,13 +64,13 @@ function Header() {
                         </ul>
                         <div
                         onClick={() => {setSidebarActive(prev => !prev)}}
-                        className='hamburger-div'>
+                        className='hamburger-icon'>
                           <img width={20} height={20} src={sidebarActive ? "" : "/hamburger.png"} alt="" />
                           </div>
                         <div 
-                         className={`${sidebarActive ? "translate-x-0" : "translate-x-full"} 
-                         transition-transform duration-300 ease-in-out
-                          h-80 w-[226px] p-2  bg-white top-8 absolute left-[40%] z-10`}
+                         className={`sidebar ${sidebarActive ? "translate-x-0" : "translate-x-full"} 
+                          transition-transform duration-300 ease-in-out
+                          fixed top-0 right-0 h-full w-[226px] p-4 bg-white z-50 shadow-lg`}
                          >
                           <div 
                           onClick={() => {setSidebarActive(prev => !prev)}}
@@ -80,7 +80,16 @@ function Header() {
                           this is the sidebar
                         </div> 
                         {!authStatus &&
-                        <div className="signup font-bold border-2 rounded-md px-0.5"><a href="/login">Log in</a></div>
+                        <div className="">
+                          <a href="/login">
+                          <button 
+                        type="button" 
+                        className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4
+                         focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800
+                          dark:hover:bg-gray-700
+                         dark:focus:ring-gray-700 dark:border-gray-700">Login</button>
+                         </a>
+                         </div>
                         }
                     </div>
                 </div>
