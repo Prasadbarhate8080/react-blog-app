@@ -10,15 +10,7 @@ function Header() {
   const navigate = useNavigate()
   const  [sidebarActive, setSidebarActive] = useState(false)
 
-  useEffect(() => {
-   console.log(sidebarActive)
-  }, [sidebarActive])
-
-  useEffect(() => {
-    console.log("run on every render")
-  })
   
-
   const navItems = [
     {
       name: 'Home',
@@ -57,16 +49,16 @@ function Header() {
                     </div>
                     <div className ="nav-items">
                         <ul className='nav-ul'>
-                            <li><a href="/">Home</a></li>
+                            {authStatus && <li><a href="/">Home</a></li>}
                             {authStatus && <li><a href="/all-posts">Your Post</a></li>}
                             {authStatus && <li><a href="/add-post">Add Post</a></li>}
                             {authStatus && <li><a><LogoutBtn /></a></li>}
                         </ul>
-                        <div
-                        onClick={() => {setSidebarActive(prev => !prev)}}
-                        className='hamburger-icon'>
+                       {authStatus && <div
+                          onClick={() => {setSidebarActive(prev => !prev)}}
+                          className='hamburger-icon'>
                           <img width={20} height={20} src={sidebarActive ? "" : "/hamburger.png"} alt="" />
-                          </div>
+                        </div>}
                         <div 
                          className={`sidebar ${sidebarActive ? "translate-x-0" : "translate-x-full"} 
                           transition-transform duration-300 ease-in-out
@@ -77,7 +69,14 @@ function Header() {
                           >
                             <img width={20} height={20} src={"/close.png" } alt="" />
                           </div>
-                          this is the sidebar
+                          <div className='px-4 mt-5'>
+                          <ul className='flex flex-col !gap-7 list-none'>
+                            {authStatus && <li><a href="/">Home</a></li>}
+                            {authStatus && <li><a href="/all-posts">Your Post</a></li>}
+                            {authStatus && <li><a href="/add-post">Add Post</a></li>}
+                            {authStatus && <li><a><LogoutBtn /></a></li>}
+                          </ul>
+                          </div>
                         </div> 
                         {!authStatus &&
                         <div className="">

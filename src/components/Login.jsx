@@ -11,10 +11,12 @@ function Login() {
     const dispatch=useDispatch()   
     const {register,handleSubmit}=useForm()
     const [error,setError]=useState('')
+    const [loading, setLoading] = useState(false);
 
     const login=async (data) => {
         setError('');
         try {
+            setLoading(true)
             const session=await authService.login(data);
             if(session)
             {
@@ -27,12 +29,14 @@ function Login() {
             }
         } catch (error) {
             setError(error.message);
+        }finally{
+            setLoading(false)
         }
     }
 
   return (
     <div
-    className='flex items-center justify-center w-full'
+    className='flex items-center justify-center w-[94%] mx-auto'
     >
         <div className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}>
         <div className="mb-2 flex justify-center">
@@ -77,7 +81,9 @@ function Login() {
                 />
                 <Button value={"Sign in"}
                 type="submit"
-                className="w-full"
+                disabled= {loading}
+                loading = {loading}
+                className="w-full disabled:bg-gray-800 disabled:cursor-not-allowed" 
                 ></Button>
             </div>
         </form>

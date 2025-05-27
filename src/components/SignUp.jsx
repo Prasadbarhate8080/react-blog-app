@@ -11,10 +11,11 @@ const navigate = useNavigate();
 const [error,setError] = useState("");
 const dispatch = useDispatch();
 const {register,handleSubmit} = useForm();
-console.log("in  signup")
+const [loading, setLoading] = useState(false)
 const create = async(data) => {
     setError("");
    try {
+    setLoading(true)
      const session = await authService.createAccount(data)
      if(session)
      {
@@ -25,11 +26,13 @@ const create = async(data) => {
      }
    } catch (error) {
     setError(error.message)
+   }finally{
+    setLoading(false)
    }
 }
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center w-[94%] mx-auto">
     <div className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}>
     <div className="mb-2 flex justify-center">
             <span className="inline-block w-full max-w-[100px]">
@@ -79,7 +82,12 @@ const create = async(data) => {
                 {...register("password", {
                     required: true,})}
                 />
-                <Button value={"Create Account"} type="submit" className="w-full">
+                <Button value={"Create Account"} 
+                type="submit" 
+                disabled= {loading}
+                loading={loading}
+                className="w-full disabled:bg-gray-800 disabled:cursor-not-allowed" 
+                >
                 </Button>
             </div>
         </form>
