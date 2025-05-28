@@ -49,10 +49,10 @@ function Header() {
                     </div>
                     <div className ="nav-items">
                         <ul className='nav-ul'>
-                            {authStatus && <li><a href="/">Home</a></li>}
-                            {authStatus && <li><a href="/all-posts">Your Post</a></li>}
-                            {authStatus && <li><a href="/add-post">Add Post</a></li>}
-                            {authStatus && <li><a><LogoutBtn /></a></li>}
+                            {authStatus && <li><Link to="/">Home</Link></li>}
+                            {authStatus && <li><Link to="/all-posts">Your Post</Link></li>}
+                            {authStatus && <li><Link to="/add-post">Add Post</Link></li>}
+                            {authStatus && <li><Link><LogoutBtn /></Link></li>}
                         </ul>
                        {authStatus && <div
                           onClick={() => {setSidebarActive(prev => !prev)}}
@@ -71,23 +71,23 @@ function Header() {
                           </div>
                           <div className='px-4 mt-5'>
                           <ul className='flex flex-col !gap-7 list-none'>
-                            {authStatus && <li><a href="/">Home</a></li>}
-                            {authStatus && <li><a href="/all-posts">Your Post</a></li>}
-                            {authStatus && <li><a href="/add-post">Add Post</a></li>}
-                            {authStatus && <li><a><LogoutBtn /></a></li>}
+                            {authStatus && <li><Link to="/">Home</Link></li>}
+                            {authStatus && <li><Link to="/all-posts">Your Post</Link></li>}
+                            {authStatus && <li><Link to="/add-post">Add Post</Link></li>}
+                            {authStatus && <li><Link><LogoutBtn className={"rounded-md mx-0 !py-2"} /></Link></li>}
                           </ul>
                           </div>
                         </div> 
                         {!authStatus &&
                         <div className="">
-                          <a href="/login">
+                          <Link to="/login">
                           <button 
                         type="button" 
                         className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4
                          focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800
                           dark:hover:bg-gray-700
                          dark:focus:ring-gray-700 dark:border-gray-700">Login</button>
-                         </a>
+                         </Link>
                          </div>
                         }
                     </div>

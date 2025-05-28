@@ -9,11 +9,11 @@ function Footer() {
         <footer>
             <div className="footer-one">
                 <ul>
-                    <li><a href="/frontend/index.html">Home</a></li>
-                    <li><a href="/frontend/contact.html">Contact Us</a></li>
-                    <li><a href="/frontend/privacy.html">Privacy Policy</a></li>
-                    <li><a href="/frontend/about.html">About Us</a></li>
-                    <li><a href="/frontend/terms.html">Terms And Condition</a></li>
+                    <li><Link to="/">Home</Link></li>
+                    <li><Link to="/">Contact Us</Link></li>
+                    <li><Link to="/">Privacy Policy</Link></li>
+                    <li><Link to="/">About Us</Link></li>
+                    <li><Link to="/">Terms And Condition</Link></li>
                 </ul>
             </div>
             <div className="footer-two">
