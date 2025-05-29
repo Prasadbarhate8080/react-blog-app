@@ -10,6 +10,7 @@ function Home() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false)
   const [featuredPosts, setFeaturedPosts] = useState([])
+  const [totalDocuments, setTotalDocuments] = useState(0)
 
   useEffect(() => {
     setLoading(true)
@@ -20,7 +21,9 @@ function Home() {
         Query.offset(skip)
       ]
     ).then((posts) => {
+      console.log(posts)
       if (posts) {
+        setTotalDocuments(posts.total)
         setPosts(posts.documents);
       }
     }).catch((error) => {
@@ -34,8 +37,7 @@ function Home() {
   useEffect(() => {
     for(let i = 0; i < 3; i++)
     {
-      console.log("first render")
-      let n = Math.floor(Math.random() * 10)
+      let n = Math.floor(Math.random() * totalDocuments)
       appwriteService.getPosts(
       [
         Query.equal("status", "active"),
@@ -46,7 +48,7 @@ function Home() {
         if(post) 
         {
           setFeaturedPosts((prev) => { 
-            if(featuredPosts.length  > 0)
+            if(prev.length  > 0)
                return [...prev]
             else
               return [...prev, post.documents[0]]
@@ -120,7 +122,7 @@ function Home() {
           <div className="mt-8 p-4 mx-[14px] gap-6 justify-between items-center  bg-[#f7f7f7] flex flex-wrap">
             {featuredPosts.length > 0 ? (
               featuredPosts.map((post) => (
-                <PostCard key={post.$id} {...post} fileId={post.featuredimage} />
+                <PostCard key={post?.$id} {...post} fileId={post?.featuredimage} />
               ))
           ) : 
           (
@@ -198,7 +200,7 @@ function Home() {
           <div className="mt-8 p-4 mx-[14px] gap-6 justify-between items-center  bg-[#f7f7f7] flex flex-wrap">
             {featuredPosts.length > 0 ? (
               featuredPosts.map((post) => (
-                <PostCard key={post.$id} {...post} fileId={post.featuredimage} />
+                <PostCard key={post?.$id} {...post} fileId={post?.featuredimage} />
               ))
           ) : 
           (
@@ -242,7 +244,7 @@ function Home() {
         <div className="grid min-h-50 md:min-h-[847px] grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6  mt-8 p-4 mx-[14px]  bg-[#f7f7f7]">
           {posts.map((post) => (
             <div key={post.$id} className="h-full w-full flex justify-center ">
-              <PostCard {...post} fileId={post.featuredimage} />
+              <PostCard {...post} fileId={post?.featuredimage} />
             </div>
           ))}
         </div>
@@ -277,7 +279,7 @@ function Home() {
           <div className="mt-8 p-4 mx-[14px] gap-6 justify-between items-center  bg-[#f7f7f7] flex flex-wrap">
             {featuredPosts.length > 0 ? (
               featuredPosts.map((post) => (
-                <PostCard key={post.$id} {...post} fileId={post.featuredimage} />
+                <PostCard key={post?.$id} {...post} fileId={post?.featuredimage} />
               ))
           ) : 
           (
