@@ -33,6 +33,7 @@
     transition: color 0.3s ease, transform 0.3s ease;
     max-height: 58px;
     overflow: hidden;
+    text-overflow: ellipsis;
   }
   .post-card .post-heading:hover{
     cursor: pointer;
@@ -52,4 +53,5 @@
     text-overflow: ellipsis; 
     max-height: 80px;
     overflow: hidden;
+    text-overflow: ellipsis;
   }

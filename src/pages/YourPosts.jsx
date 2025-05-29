@@ -27,9 +27,9 @@ function YourPosts() {
     return (
       <div className="w-full py-8">
         <Container>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6  lg:grid-cols-3 gap-y-10 sm:gap-y-0 place-items-center mt-8 p-4 mx-[14px]  bg-[#f7f7f7]">
+          <div className="grid min-h-50 md:min-h-[40px] grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6  mt-8 p-4 mx-[14px]  bg-[#f7f7f7]">
             {posts.map((post) => (
-              <div key={post.$id} className="flex-">
+              <div key={post.$id} className="h-full w-full flex justify-center ">
                 <PostCard {...post} fileId={post.featuredimage} />
               </div>
             ))}
