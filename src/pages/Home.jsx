@@ -3,6 +3,7 @@ import { Query } from "appwrite";
 import { Link } from "react-router-dom";
 import appwriteService from "../appWrite/config";
 import { Container, PostCard } from "../components";
+import {v4 as uuid} from "uuid"
 import "./Home.css";
 
 function Home() {
@@ -11,7 +12,10 @@ function Home() {
   const [loading, setLoading] = useState(false)
   const [featuredPosts, setFeaturedPosts] = useState([])
   const [totalDocuments, setTotalDocuments] = useState(0)
-
+  useEffect(() => {
+    console.log(posts,featuredPosts)
+  }, [posts,featuredPosts])
+  
   useEffect(() => {
     setLoading(true)
     appwriteService.getPosts(
@@ -21,7 +25,6 @@ function Home() {
         Query.offset(skip)
       ]
     ).then((posts) => {
-      console.log(posts)
       if (posts) {
         setTotalDocuments(posts.total)
         setPosts(posts.documents);
@@ -34,32 +37,38 @@ function Home() {
     })
   }, [skip]);
 
-  useEffect(() => {
-    for(let i = 0; i < 3; i++)
-    {
-      let n = Math.floor(Math.random() * totalDocuments)
-      appwriteService.getPosts(
-      [
-        Query.equal("status", "active"),
-        Query.limit(1),
-        Query.offset(n)
-      ])
-      .then((post) => {
-        if(post) 
-        {
-          setFeaturedPosts((prev) => { 
-            if(prev.length  > 0)
-               return [...prev]
-            else
-              return [...prev, post.documents[0]]
-          })
-        }
-      }).catch((error) => {
-        console.log(error)
-      })
-    }
-  }, [])    
-
+  // useEffect(() => {
+  //   const offSet = new Set();
+  //   const postsArray = [];
+  //   while(postsArray.length <= 3)
+  //   {
+  //     let n = Math.floor(Math.random() * totalDocuments)
+  //     if(offSet.has(n)) continue;
+  //     offSet.add(n);
+  //     console.log("object")
+  //     appwriteService.getPosts(
+  //     [
+  //       Query.equal("status", "active"),
+  //       Query.limit(1),
+  //       Query.offset(n)
+  //     ])
+  //     .then((post) => {
+  //       if(post)
+  //       {
+  //         postsArray.push(post)
+  //         setFeaturedPosts((prev) => { 
+  //           if(prev.length == 3)
+  //              return [...prev]
+  //           else
+  //             return [...prev, post.documents[0]]
+  //         }
+  //       )
+  //       }
+  //     }).catch((error) => {
+  //       console.log(error)
+  //     })
+  //   }
+  // }, [totalDocuments])
 
   if(loading)
   {
@@ -78,7 +87,6 @@ function Home() {
               </a>
             </div>
 
-            
             <div className="hidden md:block absolute inset-0 opacity-10 pointer-events-none">
               <svg xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
                 <circle cx="50%" cy="50%" r="40%" fill="#ffffff" />
@@ -98,7 +106,7 @@ function Home() {
               type="button" className=" text-white rounded-l-md border-r border-gray-100 py-2 bg-gray-800 hover:bg-gray-900 hover:text-white px-3">
               <div className="flex flex-row align-middle">
                 <svg className="w-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"></path>
+                  <path fillRule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clipRule="evenodd"></path>
                 </svg>
                 <p className="ml-2">Prev</p>
               </div>
@@ -109,7 +117,7 @@ function Home() {
               <div className="flex flex-row align-middle">
                 <span className="mr-2">Next</span>
                 <svg className="w-5 ml-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                  <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
                 </svg>
               </div>
             </button>
@@ -119,21 +127,21 @@ function Home() {
           <h1 className="mt-5 text-[32px] font-semibold text-[#495057] mx-[14px] text-left">
             Featured Posts
           </h1>
-          <div className="mt-8 p-4 mx-[14px] gap-6 justify-between items-center  bg-[#f7f7f7] flex flex-wrap">
-            {featuredPosts.length > 0 ? (
-              featuredPosts.map((post) => (
-                <PostCard key={post?.$id} {...post} fileId={post?.featuredimage} />
-              ))
-          ) : 
-          (
-            <div></div>
-          )
-          }
+          <div className="mt-8 p-4 mx-[14px] gap-6 justify-between items-center bg-[#f7f7f7] flex flex-wrap">
+            {
+              featuredPosts.length > 0 ? (
+                featuredPosts.map((post) => (
+                  <PostCard key={uuid()} {...post} fileId={post?.featuredimage} />
+                ))
+              ) : 
+              (
+                <div></div>
+              )
+            }
           </div>
         </div>
       </Container>
     </Container>
-      
     )
   }
   if (posts.length === 0) {
@@ -175,7 +183,7 @@ function Home() {
               type="button" className="bg-gray-800 text-white rounded-l-md border-r border-gray-100 py-2  hover:bg-gray-900 hover:text-white px-3">
               <div className="flex flex-row align-middle">
                 <svg className="w-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"></path>
+                  <path fillRule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clipRule="evenodd"></path>
                 </svg>
                 <p className="ml-2">Prev</p>
               </div>
@@ -186,7 +194,7 @@ function Home() {
               <div className="flex flex-row align-middle">
                 <span className="mr-2">Next</span>
                 <svg className="w-5 ml-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                  <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
                 </svg>
               </div>
             </button>
@@ -230,7 +238,6 @@ function Home() {
             </a>
           </div>
 
-          
           <div className="hidden md:block absolute inset-0 opacity-10 pointer-events-none">
             <svg xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
               <circle cx="50%" cy="50%" r="40%" fill="#ffffff" />
@@ -254,18 +261,18 @@ function Home() {
               type="button" className=" text-white rounded-l-md border-r border-gray-100 py-2 bg-gray-800 hover:bg-gray-900 hover:text-white px-3">
               <div className="flex flex-row align-middle">
                 <svg className="w-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"></path>
+                  <path fillRule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clipRule="evenodd"></path>
                 </svg>
                 <p className="ml-2">Prev</p>
               </div>
             </button>
             <button
-              onClick={() => {setSkip(prev => prev + 6)}}
+              onClick={() => {if(posts.length != 0) setSkip(prev => prev + 6)}}
               type="button" className=" text-white rounded-r-md py-2 border-l border-gray-200 bg-gray-800 hover:bg-gray-900 hover:text-white px-3">
               <div className="flex flex-row align-middle">
                 <span className="mr-2">Next</span>
                 <svg className="w-5 ml-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                  <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
                 </svg>
               </div>
             </button>
@@ -279,7 +286,7 @@ function Home() {
           <div className="mt-8 p-4 mx-[14px] gap-6 justify-between items-center  bg-[#f7f7f7] flex flex-wrap">
             {featuredPosts.length > 0 ? (
               featuredPosts.map((post) => (
-                <PostCard key={post?.$id} {...post} fileId={post?.featuredimage} />
+                <PostCard key={uuid()} {...post} fileId={post?.featuredimage} />
               ))
           ) : 
           (
