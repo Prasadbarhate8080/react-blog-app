@@ -35,15 +35,19 @@ export default function Post() {
     return post ? (
         <div className="py-8">
             <Container>
-                <div className="w-full flex justify-center mb-4 relative  rounded-xl p-2">
+                <div className="w-full flex justify-center mb-4 relative flex-col  rounded-xl p-2">
+                    <div className="w-full mb-6">
+                        <h1 className="text-2xl w-[90%] mx-auto font-bold">{post.title}</h1>
+                    </div>
                     <img
                         src={`https://cloud.appwrite.io/v1/storage/buckets/67b821b1000c19002551/files/${post.featuredimage}/view?project=67b81dba003710becd69`}
                         alt={post.title}
-                        className="rounded-xl"
+                        width={600}
+                        className="rounded-xl mx-auto"
                     />
 
                     {isAuthor && (
-                        <div className="absolute flex   right-6 top-6">
+                        <div className="absolute flex  right-6 top-6">
                             <Link to={`/edit-post/${post.$id}`}>
                                 <Button bgColor="bg-green-500 " value="Edit" className="mr-3  text-white"/>  
                             </Link>
@@ -51,10 +55,8 @@ export default function Post() {
                         </div>
                     )}
                 </div>
-                <div className="w-full mb-6">
-                    <h1 className="text-2xl text-center font-bold">{post.title}</h1>
-                </div>
-                <div className="browser-css">
+                
+                <div className="browser-css mt-8 w-[90%] mx-auto prose prose-lg max-w-none">
                     {parse(post.content)}
                 </div>
             </Container>

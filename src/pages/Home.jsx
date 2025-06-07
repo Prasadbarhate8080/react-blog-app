@@ -12,10 +12,7 @@ function Home() {
   const [loading, setLoading] = useState(false)
   const [featuredPosts, setFeaturedPosts] = useState([])
   const [totalDocuments, setTotalDocuments] = useState(0)
-  useEffect(() => {
-    console.log(posts,featuredPosts)
-  }, [posts,featuredPosts])
-  
+
   useEffect(() => {
     setLoading(true)
     appwriteService.getPosts(
@@ -37,38 +34,45 @@ function Home() {
     })
   }, [skip]);
 
-  // useEffect(() => {
-  //   const offSet = new Set();
-  //   const postsArray = [];
-  //   while(postsArray.length <= 3)
-  //   {
-  //     let n = Math.floor(Math.random() * totalDocuments)
-  //     if(offSet.has(n)) continue;
-  //     offSet.add(n);
-  //     console.log("object")
-  //     appwriteService.getPosts(
-  //     [
-  //       Query.equal("status", "active"),
-  //       Query.limit(1),
-  //       Query.offset(n)
-  //     ])
-  //     .then((post) => {
-  //       if(post)
-  //       {
-  //         postsArray.push(post)
-  //         setFeaturedPosts((prev) => { 
-  //           if(prev.length == 3)
-  //              return [...prev]
-  //           else
-  //             return [...prev, post.documents[0]]
-  //         }
-  //       )
-  //       }
-  //     }).catch((error) => {
-  //       console.log(error)
-  //     })
-  //   }
-  // }, [totalDocuments])
+  useEffect(() => {
+    const offSet = new Set();
+    if(totalDocuments > 3)
+    {
+      while(offSet.size < 3)
+      {
+        let n = Math.floor(Math.random() * totalDocuments)
+        // console.log(n,totalDocuments)
+        if(offSet.has(n))  continue;
+        offSet.add(n);
+      }
+      // console.log(offSet)
+    }
+
+    if(offSet.size == 3 ){
+      for(let i of offSet){
+        appwriteService.getPosts(
+        [
+          Query.equal("status", "active"),
+          Query.limit(1),
+          Query.offset(i)
+        ])
+        .then((post) => {
+          if(post)
+          {
+            setFeaturedPosts((prev) => { 
+              if(prev.length == 3)
+                return [...prev]
+              else
+                return [...prev, post.documents[0]]
+            }
+          )
+          }
+        }).catch((error) => {
+          console.log(error)
+        })
+      }
+    }
+  }, [totalDocuments])
 
   if(loading)
   {
