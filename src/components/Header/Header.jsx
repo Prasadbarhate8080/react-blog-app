@@ -11,7 +11,17 @@ function Header() {
   const authStatus = useSelector((state) => state.auth.status)
   const navigate = useNavigate()
   const  [sidebarActive, setSidebarActive] = useState(false)
-  const [searchResult, setSearchResult] =useState([]);
+  const [defaultSearch, setDefaultSearch] = useState(
+    [
+      "How to use AI for coding",
+      "The Future of Artificial Intelligence in Everyday Life",
+      "How AI is Changing the Way We Code",
+    ])
+  const [searchResult, setSearchResult] = useState(
+    [
+      
+    ]
+);
 
   function search(query) {
     appwriteService.getPosts(
@@ -27,6 +37,7 @@ function Header() {
   function debounce(fn,delay) {
     let timerId = 0;
     return function (query) {
+      console.log(query)
       clearTimeout(timerId)
       timerId = setTimeout(() => {
         fn(query);
@@ -79,7 +90,7 @@ function Header() {
                       <input type="text" placeholder='Search'
                       className=' indent-[10px] border-[1px] outline-none h-[30px] w-[200px]
                       rounded-tl-[4px] rounded-bl-[4px] border-[gray] border-r-0 focus:border-black focus:border-r-0' 
-                      onChange={(e) => {delaySearch(e.target.value)}}
+                      onChange={(e) => {setSearchResult([e.target.value])}}
                       />
                       <div className='w-[35px] h-[30px] bg-[#E3E6E6] rounded-tr-[4px] rounded-br-[4px] 
                       border-[1px] border-[gray] outline-none flex justify-center items-center border-l-0
@@ -92,11 +103,20 @@ function Header() {
                             17.430123 5 13 C 5 8.5698774 8.5698774 5 13 5 z"></path>
                         </svg>
                       </div>
-                      <div className='absolute hidden group-focus-within:block  h-96 w-[30%] bg-white shadow-xl rounded-xl right-52 z-10
-                        top-[11%] p-5'
+                      <div className='absolute hover:block hidden group-focus-within:block  h-96 w-[30%] bg-white shadow-xl rounded-xl right-52 z-10
+                        top-[11%] p-8'
                       >
-                        <ul>
-                          <li></li>
+                        <ul className='flex flex-col !gap-6'>
+                          {searchResult.map((searchString,index) => 
+                            <li key={index} onClick={(e) => {delaySearch(e.currentTarget.innerText.trim())}}
+                            className='cursor-pointer'
+                            >{searchString}</li>
+                          )}
+                          {defaultSearch.map((searchString,index) => 
+                            <li key={index} onClick={(e) => {delaySearch(e.currentTarget.innerText.trim())}}
+                            className='cursor-pointer'
+                            >{searchString}</li>
+                          )}
                         </ul>
                       </div>
                     </li>
