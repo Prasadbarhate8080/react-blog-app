@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect, useCallback} from 'react'
 import {Container, Logo, LogoutBtn} from '../index'
 import { Link } from 'react-router-dom'
 import {useSelector} from 'react-redux'
@@ -17,34 +17,48 @@ function Header() {
       "The Future of Artificial Intelligence in Everyday Life",
       "How AI is Changing the Way We Code",
     ])
-  const [searchResult, setSearchResult] = useState(
-    [
-      
-    ]
-);
+  const [searchResult, setSearchResult] = useState([]);
 
-  function search(query) {
+const search =  useCallback(
+   function search(query) {
+    console.log("call aaya")
     appwriteService.getPosts(
       [
         Query.search("title",query),
         Query.limit(6)
       ]
     ).then((posts) => {
-      if(posts) console.log(posts)
+      if(posts){
+        console.log(Date.now())
+      }
     })
-  }
+  },
+  [],)
 
+ 
+
+const debounce =  useCallback(
   function debounce(fn,delay) {
     let timerId = 0;
     return function (query) {
-      console.log(query)
       clearTimeout(timerId)
       timerId = setTimeout(() => {
         fn(query);
       },delay)
     }
+  },
+  [])
+
+  
+  const delaySearch =  useCallback(
+     debounce(search,3000)
+    ,[])
+  
+  
+
+  const displaySearch = (query) => {
+
   }
-  const delaySearch = debounce(search,3000);
 
   const navItems = [
     {
@@ -90,7 +104,7 @@ function Header() {
                       <input type="text" placeholder='Search'
                       className=' indent-[10px] border-[1px] outline-none h-[30px] w-[200px]
                       rounded-tl-[4px] rounded-bl-[4px] border-[gray] border-r-0 focus:border-black focus:border-r-0' 
-                      onChange={(e) => {setSearchResult([e.target.value])}}
+                      onChange={(e) => {setSearchResult([e.target.value]); delaySearch(e.target.value)}}
                       />
                       <div className='w-[35px] h-[30px] bg-[#E3E6E6] rounded-tr-[4px] rounded-br-[4px] 
                       border-[1px] border-[gray] outline-none flex justify-center items-center border-l-0
@@ -148,12 +162,12 @@ function Header() {
                   </div>
                   </div> 
                   {!authStatus &&
-                  <div className="">
+                  <div className="flex items-center">
                     <Link to="/signup">
                     <button 
-                  type="button" 
-                  className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4
-                    focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800
+                     type="button" 
+                     className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4
+                    focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 me-2  dark:bg-gray-800
                     dark:hover:bg-gray-700
                     dark:focus:ring-gray-700 dark:border-gray-700">Signup</button>
                     </Link>
